@@ -23,6 +23,8 @@ openweathermap_params = {'q': city,
 response1 = requests.get(openweathermap_link, headers=headers[1], params=openweathermap_params)
 if response1.ok:
     data_openweathermap = json.loads(response1.text)
+    with open('data_openweathermap.json', 'w', encoding='utf-8') as f:
+        json.dump(data_openweathermap, f, ensure_ascii=False, indent=4)
     openweathermap_weather = data_openweathermap["main"]["temp"] - 273.15
 else:
     print(f'Город с названием "{city}" не найден на OpenWeatherMap.')
@@ -38,6 +40,8 @@ yandex_map_param = {'format': 'json',
 response2 = requests.get(yandex_coord_link, params=yandex_map_param)
 if response2.ok:
     data_yandex_geokoder =json.loads(response2.text)
+    with open('data_yandex_geokoder.json', 'w', encoding='utf-8') as f:
+        json.dump(data_yandex_geokoder, f, ensure_ascii=False, indent=4)
     city_coord = data_yandex_geokoder["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split(' ')
 else:
     print(f'Город с названием "{city}" не найден на Яндекс.картах. Невозможно получить координаты.')
@@ -50,6 +54,8 @@ yandex_weather_params = {'lon': city_coord[0],
 response3 = requests.get(yandex_weather_link, headers=headers[2], params=yandex_weather_params)
 if response3.ok:
     data_yandex_weather =json.loads(response3.text)
+    with open('data_yandex_weather.json', 'w', encoding='utf-8') as f:
+        json.dump(data_yandex_weather, f, ensure_ascii=False, indent=4)
     yandex_weather = data_yandex_weather["fact"]["temp"]
 else:
     yandex_weather = 0
