@@ -1,9 +1,9 @@
 import requests
 import json
 
-git_user = 'sunshineo'
 # uncomment for manual input other users
-# git_user = input('Need user-name: ')
+# git_user = 'sunshineo'
+git_user = input('Введите имя пользователя: ')
 git_link = 'https://api.github.com/users/' + git_user + '/repos'
 
 response = requests.get(git_link)
